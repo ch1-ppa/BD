@@ -1,0 +1,265 @@
+﻿<Window x:Class="WpfApp7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp7"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="300" WindowStartupLocation="CenterScreen"  Background="{StaticResource ControlColorBrush}" Loaded="Window_Loaded">
+    <Grid>
+        <TabControl Margin="0.5,0,0.15,0">
+            <TabItem Header="Page1" Margin="0,0,30,0" RenderTransformOrigin="0.63,-0.5">
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap" Text="TextBlock" FontSize="16" TextDecorations="Underline" TextAlignment="Center" Margin="0.5,0,0.15,0">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="Red"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <StackPanel Margin="5,5,5,5" Orientation="Vertical">
+                        <Label x:Name="Label1" Content="Label" Height="100" Width="100"/>
+                        <Slider x:Name="Slider1" Width="230" Maximum="54" TickFrequency="2" TickPlacement="TopLeft" ValueChanged="Slider1_ValueChanged"/>
+                    </StackPanel>
+                    <TextBlock Name="TextBlock1" Margin="0,10,0,0" Foreground="Aqua">
+                    </TextBlock>
+                </StackPanel>
+            </TabItem>
+
+
+
+
+
+            <TabItem Header="Page2" Margin="-30,0,64,0">
+                <StackPanel>
+                    <TextBlock TextWrapping="Wrap" Text="TextBlock" FontSize="16" TextDecorations="Underline" TextAlignment="Center" Margin="0.5,0,0.15,0">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="Red"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+                        <Label x:Name="Label2" ContentStringFormat="F0" Height="100" Width="100">
+                            <Label.Content>
+                                <Binding ElementName="Slider2" Path ="Value" Mode="OneWay"/>
+                            </Label.Content>
+                        </Label>
+                        <Slider x:Name="Slider2" Minimum="11" Maximum="54" TickFrequency="2" TickPlacement="Both" ValueChanged="Slider2_ValueChanged" Width="167"/>
+                    </StackPanel>
+                    <TextBlock Name="TextBlock2" Margin="0,10" Foreground="Aqua">
+                        <TextBlock.FontSize>
+                            <Binding ElementName="TextBlock1"/>
+                        </TextBlock.FontSize>
+                    </TextBlock>
+
+
+
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Page3" Margin="-64,0,99,0">
+                <StackPanel Height="100" Width="100"/>
+            </TabItem>
+
+            <TabItem Header="Page4" Margin="-99,0,132,0">
+                <StackPanel>
+                    <!-- Page5. Цепочки привязок -->
+                    <TextBlock TextWrapping="Wrap" Text="множественная привязка" FontSize="16" Foreground="Red"  TextDecorations="Underline" TextAlignment="Center" Margin="0.5,0.15"/>
+                    <TextBox x:Name="textBox4"   Margin="5,0,5,15" Text="ffeeeeghgfffrrtt"/>
+                    <StackPanel Margin="5,5,5,5" Orientation="Horizontal">
+                        <Label x:Name="Label4" ContentStringFormat="F0" Height="100" Width="40" Content="{Binding Value, ElementName=Slider4, Mode=OneWay}"/>
+                        <Slider x:Name="Slider4" Width="230" Minimum="11" Maximum="54" TickFrequency="2" TickPlacement="Both" IsSnapToTickEnabled="True"/>
+
+                    </StackPanel>
+                    <ListBox x:Name="listBox" Margin="5" >
+                        <ListBox.Resources >
+                            <SolidColorBrush x:Key="redBrush"  Color="Red"/>
+                            <SolidColorBrush x:Key="greenBrush"  Color="Green"/>
+                            <SolidColorBrush x:Key="blueBrush"  Color="Blue"/>
+                        </ListBox.Resources>
+                        <ListBoxItem Tag="{StaticResource redBrush}" Content="Red" />
+                        <ListBoxItem Tag="{StaticResource greenBrush}" Content="Green"/>
+                        <ListBoxItem Tag="{StaticResource blueBrush}" Content="Blue" Selector.IsSelected="True" />
+                    </ListBox>
+                    <TextBlock x:Name="textBlock4" Margin="0,10"  
+                               FontSize="{Binding Value, ElementName=TextBlock4, Mode=OneWay}"
+                               Text="{Binding Value, ElementName=TextBox4, Mode=OneWay}"     
+                               Foreground="{Binding SelectedItem.Tag, ElementName=listBox, Mode=OneWay}"
+                        />
+
+                    <!-- Page6. Двунаправленная привязка -->
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Page5" Margin="0,-1,54,1">
+                <StackPanel>
+                    <TextBlock FontSize="16" TextDecorations="Underline"
+                        TextAlignment="Center" Margin="0,5,0,15" Foreground="Red"
+                        Text="Цепочки привязок" 
+                        />
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label x:Name="label5" Width="40"
+                            Content="{Binding Value, ElementName=slider5, Mode=OneWay}" 
+                            />
+                        <Slider x:Name="slider5" Width="230" 
+                            Minimum="11" Maximum="54"
+                            TickFrequency="2" TickPlacement="TopLeft" 
+                            IsSnapToTickEnabled="True"
+                            />
+                    </StackPanel>
+                    <TextBlock Margin="0,10" 
+                        Foreground="Blue"
+                        FontSize="{Binding Content, ElementName=label5, Mode=OneWay}"
+                        Text="Simple Text"
+                        />
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Page6" Margin="-57,-1,112,1">
+                <StackPanel>
+                    <TextBlock FontSize="16" TextDecorations="Underline"
+                        TextAlignment="Center" Margin="0,5,0,15" Foreground="Red"><Run Text="Двунаправленная привязка"/><LineBreak /><Run Text="элемента TextBox к Slider"/><LineBreak /><Run Text="без проверки достоверности"/></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Width="40"
+                            Content="{Binding Value, ElementName=slider6, Mode=OneWay}" 
+                            />
+                        <Slider x:Name="slider6" Width="230" 
+                            Minimum="11" Maximum="54"
+                            TickFrequency="2" TickPlacement="TopLeft" 
+                            IsSnapToTickEnabled="True"
+                            Value="35"
+                            />
+                    </StackPanel>
+                    <TextBox Margin="5" 
+                        Text="{Binding Value, ElementName=slider6, Mode=TwoWay}" 
+                        />
+                    <TextBlock Margin="0,10" 
+                        Foreground="Blue"
+                        FontSize="{Binding Value, ElementName=slider6, Mode=OneWay}"
+                        Text="Simple Text"
+                        />
+                </StackPanel>
+            </TabItem>
+
+            <!-- Page7. Двунаправленная привязка источника-приемника -->
+            <TabItem Header="Page7" Margin="-113,-1,160,1">
+                <StackPanel>
+                    <TextBlock FontSize="16" TextDecorations="Underline"
+                        TextAlignment="Center" Margin="0,5,0,15" Foreground="Red">
+                        Двунаправленная привязка 
+                        <LineBreak />
+                        источника - приемника
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Width="40"
+                            Content="{Binding ElementName=slider7, Path=Value, Mode=OneWay}" 
+                            />
+                        <Slider Name="slider7" Width="230" 
+                            Minimum="11" Maximum="54"
+                            TickFrequency="2" TickPlacement="TopLeft" 
+                            IsSnapToTickEnabled="True"
+                            Value="{Binding ElementName=textBox7, Path=Text, Mode=TwoWay}" 
+                            />
+                    </StackPanel>
+                    <TextBox Name="textBox7" Margin="5" Text="21" />
+                    <TextBlock Margin="0,10" 
+                        Foreground="Blue"
+                        FontSize="{Binding ElementName=slider7, Path=Value, Mode=OneWay}"
+                        Text="Simple Text"
+                        />
+                </StackPanel>
+            </TabItem>
+
+            <!--Page8.Привязка элементов в коде-->
+            <TabItem Header="Page8">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                           TextDecorations="Underline"
+                           TextAlignment="Center"
+                           Margin="0,5,0,15" Foreground="Red"
+                           Text="Привязка элементов в коде"
+                           />
+                    <StackPanel Orientation="Horizontal"
+                        Margin="5">
+                        <Label Width="40"
+                       Name="label8"
+                       />
+                        <Slider Name="slider8" Width="230"
+                        Minimum="11" Maximum="54"
+                        TickFrequency="2"
+                        TickPlacement="TopLeft"
+                        IsSnapToTickEnabled="True"
+                        />
+                    </StackPanel>
+                    <TextBlock Margin="0,10"
+                           Foreground="Blue"
+                           Name="textBlock8"
+                           Text="Simple Text"
+                           />
+                </StackPanel>
+            </TabItem>
+            
+            <!--Page9. Изменение привязки в коде-->
+            <TabItem Header="Page9">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                               TextDecorations="Underline"
+                               TextAlignment="Center"
+                               Margin="0,5,0,15" Foreground="Red"
+                               Text="Измененние привязки в коде"
+                               />
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Name="label9" Width="40"
+                           Content="{Binding
+                        ElementName=slider9, Path=Value, Mode=OneWay}"
+                           />
+                        <Slider Name="slider9" Width="230"
+                            Minimum="11" Maximum="54"
+                            TickFrequency="2"
+                            TickPlacement="TopLeft"
+                            IsSnapToTickEnabled="True"
+                            />
+                    </StackPanel>
+                    <TextBlock Name="textBlock9"
+                               Margin="0,10"
+                               Foreground="Blue"
+                               FontSize="{Binding ElementName=slider9,
+                        Path=Value,Mode=OneWay}"
+                               />
+                </StackPanel>
+                
+            </TabItem>
+           
+            <!--Page10. Размещение привязки на стороне источника-->
+            <TabItem Header="Page10"
+                     Selector.IsSelected="True">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                               TextDecorations="Underline"
+                               TextAlignment="Center" Margin="5"
+                               Foreground="Red"
+                               Text="Размещение привязки на источнике"
+                               />
+                    <FlowDocumentScrollViewer Height="110"
+                                              Margin="5" BorderThickness="2">
+                        <FlowDocument Background="White">
+                            <Paragraph>
+                                Этот приемник текста!
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Name="runParagraph10" />
+                            </Paragraph>
+                        </FlowDocument>
+                    </FlowDocumentScrollViewer>
+                    <TextBox
+                        Margin="5" MinLines="3" MaxLines="3"
+                        TextWrapping="Wrap"
+                        AcceptsReturn="True"
+                        AcceptsTab="True"
+                        VerticalScrollBarVisibility="Visible"
+                        Text="{Binding
+                        ElementName=runParagraph10,Path=Text,
+                        Mode=OneWayToSource,
+                        UpdateSourceTrigger=PropertyChanged}"
+                        />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
